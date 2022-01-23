@@ -27,18 +27,37 @@ function init() {
 
     const controls = new OrbitControls( camera, renderer.domElement )
 
-    const directionalLight = new THREE.DirectionalLight( 0xffffff )
-    directionalLight.position.set( 0, 0, 2 )
-    directionalLight.castShadow = true
-    directionalLight.intensity = 2
-    scene.add( directionalLight )
+        // add a directional light
+        const directionalLight = new THREE.DirectionalLight( 0xffffff )
+        directionalLight.position.set( 0, 0, 2 )
+        directionalLight.castShadow = true
+        directionalLight.intensity = 2
+        scene.add( directionalLight )
+    
+        const directionalLight2 = new THREE.DirectionalLight( 0xffffff )
+        directionalLight2.position.set( 0, 0, -2 )
+        directionalLight2.castShadow = true
+        directionalLight2.intensity = 1.7
+        scene.add( directionalLight2 )
+    
+        //////////////////////////////////////////////
+        // load materials and cube maps
+    
+        let material    
+        // load a pbr material
+        const tl = new THREE.TextureLoader()
+        tl.setPath('materials/PBR/streaked-metal1/')
+        material = new THREE.MeshPhysicalMaterial()
+        material.map          = tl.load('Plastic 2.jpg')
+        material.metalness = 0.4
+        material.roughness = 0.0
 
     raycaster = new THREE.Raycaster()
 
     const loader = new Rhino3dmLoader()
     loader.setLibraryPath( 'https://cdn.jsdelivr.net/npm/rhino3dm@0.13.0/' )
 
-    loader.load( 'sphere.3dm', function ( object ) {
+    loader.load( '210122_CBM_Fun Tubes_Attractor_Bake.3dm', function ( object ) {
 
         document.getElementById('loader').remove()
         scene.add( object )
