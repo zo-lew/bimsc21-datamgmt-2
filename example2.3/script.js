@@ -6,7 +6,7 @@ import { HDRCubeTextureLoader } from 'https://cdn.jsdelivr.net/npm/three@0.124.0
 
 // declare variables to store scene, camera, and renderer
 let scene, camera, renderer
-const model = 'Rhino_Logo.3dm'
+const model = '210122_CBM_Fun Tubes_Bake.3dm'
 
 // call functions
 init()
@@ -22,7 +22,7 @@ function init () {
     scene = new THREE.Scene()
     scene.background = new THREE.Color(1,1,1)
     camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 )
-    camera.position.z = 30
+    camera.position.z = 45
 
     // create the renderer and add it to the html
     renderer = new THREE.WebGLRenderer( { antialias: true } )
@@ -34,8 +34,16 @@ function init () {
 
     // add a directional light
     const directionalLight = new THREE.DirectionalLight( 0xffffff )
+    directionalLight.position.set( 0, 0, 2 )
+    directionalLight.castShadow = true
     directionalLight.intensity = 2
     scene.add( directionalLight )
+
+    const directionalLight2 = new THREE.DirectionalLight( 0xffffff )
+    directionalLight2.position.set( 0, 0, -2 )
+    directionalLight2.castShadow = true
+    directionalLight2.intensity = 1.7
+    scene.add( directionalLight2 )
 
     //////////////////////////////////////////////
     // load materials and cube maps
@@ -46,11 +54,8 @@ function init () {
     const tl = new THREE.TextureLoader()
     tl.setPath('materials/PBR/streaked-metal1/')
     material = new THREE.MeshPhysicalMaterial()
-    material.map          = tl.load('streaked-metal1_base.png')
-    material.aoMmap       = tl.load('streaked-metal1_ao.png')
-    material.normalMap    = tl.load('streaked-metal1_normal.png')
-    material.metalnessMap = tl.load('streaked-metal1_metallic.png')
-    material.metalness = 0.2
+    material.map          = tl.load('Plastic 4.png')
+    material.metalness = 0.4
     material.roughness = 0.0
 
     // or create a material
@@ -69,7 +74,7 @@ function init () {
     // or, load cube map
     cubeMap = new THREE.CubeTextureLoader()
         .setPath('textures/cube/Bridge2/')
-        .load( [ 'px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg' ] )
+        .load( [ 'Cube 1.png', 'Cube 2.png', 'Cube 3.png', 'Cube 4.png', 'Cube 5.png', 'Cube 6.png' ] )
     
     scene.background = cubeMap
     material.envMap = scene.background

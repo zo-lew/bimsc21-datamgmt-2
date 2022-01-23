@@ -5,7 +5,8 @@ import { Rhino3dmLoader } from 'https://cdn.jsdelivr.net/npm/three@0.124.0/examp
 
 // declare variables to store scene, camera, and renderer
 let scene, camera, renderer
-const model = 'Rhino_Logo.3dm'
+//const model = 'Rhino_Logo.3dm'
+const model = '210122_CBM_Fun Tubes_Bake.3dm'
 
 // call functions
 init()
@@ -33,8 +34,20 @@ function init () {
 
     // add a directional light
     const directionalLight = new THREE.DirectionalLight( 0xffffff )
-    directionalLight.intensity = 2
+    directionalLight.intensity = 4
     scene.add( directionalLight )
+
+     //////////////////////////////////////////////
+    // load materials and cube maps
+
+    let material, cubeMap
+
+    // load a pbr material
+    const tl = new THREE.TextureLoader()
+    tl.setPath('materials/plastic 4.png/')
+    material = new THREE.MeshPhysicalMaterial()
+    material.map          = tl.load('streaked-metal1_base.png')
+  
 
     // load the model
     const loader = new Rhino3dmLoader()
